@@ -1,8 +1,8 @@
 import { PRODUCT_TYPES } from '../types';
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000/api/products';
-// const baseURL = 'https://smartsmith-backend.vercel.app/api/products';
+// const baseURL = 'http://localhost:5000/api/products';
+const baseURL = 'https://scentsmiths-backend.vercel.app/api/products';
 
 const API = axios.create({ baseURL: baseURL });
 
@@ -20,7 +20,7 @@ export const listProducts = (keyword = '') => async (dispatch) => {
 			type: PRODUCT_TYPES.PRODUCT_LIST_REQUEST,
 		});
 
-		// const { data } = await axios.get('https://smartsmith-backend.vercel.app/api/products');
+		// const { data } = await axios.get('https://scentsmiths-backend.vercel.app/api/products');
 
 		const { data } = await API.get(`?keyword=${keyword}`);
 		console.log('data>>>>>', data);
@@ -48,7 +48,7 @@ export const listProductDetails = (id) => async (dispatch) => {
 		});
 
 		// const { data } = await axios.get(
-		// 	`https://smartsmith-backend.vercel.app/api/products/${id}`,
+		// 	`https://scentsmiths-backend.vercel.app/api/products/${id}`,
 		// );
 
 		const { data } = await API.get(`/${id}`);

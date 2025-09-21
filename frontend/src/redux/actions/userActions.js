@@ -1,8 +1,8 @@
 import { USER_TYPES, ORDER_TYPES, CART_TYPES } from '../types';
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000/api/auth';
-// const baseURL = 'https://smartsmith-backend.vercel.app/api/auth';
+// const baseURL = 'http://localhost:5000/api/auth';
+const baseURL = 'https://scentsmiths-backend.vercel.app/api/auth';
 
 const API = axios.create({ baseURL: baseURL });
 

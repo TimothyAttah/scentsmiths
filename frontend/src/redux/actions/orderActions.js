@@ -1,8 +1,8 @@
 import { ORDER_TYPES } from '../types';
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000/api';
-// const baseURL = 'https://smartsmith-backend.vercel.app/api';
+// const baseURL = 'http://localhost:5000/api';
+const baseURL = 'https://scentsmiths-backend.vercel.app/api';
 
 const API = axios.create({ baseURL: baseURL });
 

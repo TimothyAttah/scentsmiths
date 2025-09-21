@@ -2,8 +2,8 @@ import { CART_TYPES } from '../types';
 
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000/api/products';
-// const baseURL = 'https://smartsmith-backend.vercel.app/api/products';
+// const baseURL = 'http://localhost:5000/api/products';
+const baseURL = 'https://scentsmiths-backend.vercel.app/api/products';
 
 const API = axios.create({ baseURL: baseURL });
 
@@ -19,7 +19,7 @@ API.interceptors.request.use((req) => {
 export const addToCart = (id, qty) => async (dispatch, getState) => {
 
 	// const { data } = await axios.get(
-	// 	`https://smartsmith-backend.vercel.app/api/products/${id}`,
+	// 	`https://scentsmiths-backend.vercel.app/api/products/${id}`,
 	// );
 
 	const { data } = await API.get(	`/${id}`);

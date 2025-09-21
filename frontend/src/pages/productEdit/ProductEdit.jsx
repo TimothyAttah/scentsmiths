@@ -87,8 +87,8 @@ const ProductEdit = () => {
 			};
 
 			const { data } = await axios.post(
-				'http://localhost:5000/api/upload',
-				// 'https://smartsmith-backend.vercel.app/',
+				// 'http://localhost:5000/api/upload',
+				'https://scentsmiths-backend.vercel.app/',
 				formData,
 				config,
 			);
