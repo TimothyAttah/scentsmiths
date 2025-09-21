@@ -2,13 +2,31 @@ import { Twirl as Hamburger } from 'hamburger-react';
 import * as Styles from './SidebarStyles';
 import { useState } from 'react';
 import { Facebook, Twitter, Instagram } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Overlay from '../Overlay';
 import { FaCartPlus, FaUser } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavDropdown } from 'react-bootstrap';
+import SearchBox from '../SearchBox';
 
 const HeaderSidebar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [clicked, setClicked] = useState(null);
+
+	const dispatch = useDispatch();
+	const loginUser = useSelector((state) => state.loginUser);
+	const { users } = loginUser;
+	const navigate = useNavigate();
+
+	const logoutHandler = () => {
+		dispatch(logoutUser());
+		navigate('/login');
+		window.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: 'smooth',
+		});
+	};
 
 	const toggleSidebar = () => {
 		setIsOpen((prev) => !prev);
@@ -24,6 +42,16 @@ const HeaderSidebar = () => {
 			height: 0,
 			overflow: 'hidden',
 		},
+	};
+
+	const closeSidebar = () => {
+		setIsOpen(false);
+
+		window.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: 'smooth',
+		});
 	};
 	return (
 		<>
@@ -42,29 +70,51 @@ const HeaderSidebar = () => {
 					animate={{
 						x: isOpen ? '0%' : '-150vw',
 					}}>
-					{/* <Styles.HeaderLogo>
-						<Link to='/'>
-							<h1>
-								scentsmith <br />
-								<span>bytenii</span>
-							</h1>
-						</Link>
-					</Styles.HeaderLogo> */}
+					<SearchBox closeSidebar={closeSidebar} />
 					<Styles.HeaderDropdownWrapperMobile>
-						<Link>
-							<FaCartPlus />
+						<Link to='/cart' onClick={closeSidebar}>
+							<>
+								<i className='fas fa-shopping-cart'></i> Cart
+							</>
 						</Link>
-						<Link>
-							<FaUser />
-						</Link>
-					</Styles.HeaderDropdownWrapperMobile>
+						{users ? (
+							<NavDropdown title={users?.name} id='username'>
+								<Link to='/profile' onClick={closeSidebar}>
+									<div>Profile</div>
+								</Link>
+								<NavDropdown.Item onClick={logoutHandler}>
+									Logout
+								</NavDropdown.Item>
+							</NavDropdown>
+						) : (
+							<Link to='/login' onClick={closeSidebar}>
+								<>
+									<i className='fas fa-user'></i>Sign In
+								</>
+							</Link>
+						)}
 
-					<Styles.SidebarNav>
-						<Link to='/'>Home Fragrances</Link>
-						<Link to='/'>Car Fragrances</Link>
-						<Link to='/'>Perfume</Link>
-						<Link to='/contact'>Contact</Link>
-					</Styles.SidebarNav>
+						<Link to='/contact' onClick={closeSidebar}>
+							<>
+								<i className='fas fa-phone'></i> Contact
+							</>
+						</Link>
+
+						{users && users.isAdmin && (
+							<NavDropdown title='Admin' id='adminmenu'>
+								<Link to='/admin/userlist' onClick={closeSidebar}>
+									<div>Users</div>
+								</Link>
+								<Link to='/admin/productlist' onClick={closeSidebar}>
+									<div>Products</div>
+								</Link>
+
+								<Link to='/admin/orderlist' onClick={closeSidebar}>
+									<div>Orders</div>
+								</Link>
+							</NavDropdown>
+						)}
+					</Styles.HeaderDropdownWrapperMobile>
 
 					<Styles.InfoWrapper>
 						<Styles.InfoList>

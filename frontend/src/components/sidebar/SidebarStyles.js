@@ -9,7 +9,7 @@ export const HeaderSidebarMenuButton = styled(motion.div)`
 	top: -5px;
 	background-color: rgb(129 59 1);
 	background-color: #000;
-	color: #fff;
+	/* color: #fff; */
 	border-radius: 10px;
 	width:45px;
 	height: 45px;
@@ -29,9 +29,10 @@ export const HeaderSidebarNavWrapper = styled(motion.div)`
 	max-width: 350px;
 	width: 100%;
 	background-color: var(--brown);
-	background-color: #fff;
+	background-color: #c63c51;
+	/* background-color: #fff; */
 	color: #fff;
-	color: #000;
+	/* color: #000; */
 	padding-top: 120px;
 	z-index: 9999;
 	padding: 20px;
@@ -90,15 +91,17 @@ export const HeaderDropdownWrapperMobile = styled.div`
 	display: flex;
 	/* align-items: center; */
   flex-direction: column;
-	gap: 10px;
-  padding-top: 20px;
+	gap: 20px;
+  padding: 20px 0;
+	margin-top: 30px;
 
 	a {
 		color: #000;
-    font-size: 30px;
+		color:#fff;
+    font-size: 20px;
 	}
 
-	display: none;
+	/* display: none; */
 	@media screen and (max-width: 900px) {
 		margin-right: 70px;
 		display: flex;
@@ -107,11 +110,17 @@ export const HeaderDropdownWrapperMobile = styled.div`
 
 
 export const SidebarNav = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 50px 0;
-`
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	/* padding: 50px 0; */
+	padding-top: 20px;
+
+	a {
+		color: #000;
+		font-size: 20px;
+	}
+`;
 
 export const ImgBox = styled.div`
 	width: 100%;
@@ -127,14 +136,15 @@ export const InfoWrapper = styled.div`
 	gap: 20px;
 	padding: 20px 0;
   border-top: 2px solid #ccc;
+	padding-top: 40px;
 `;
 
 export const InfoList = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
-	font-size: 10px;
-	padding: 5px 0;
+	/* gap: 10px; */
+	font-size: 14px;
+	/* padding: 5px 0; */
 
 	span {
 		color: var(--brown);
@@ -145,7 +155,8 @@ export const InfoList = styled.div`
 		align-items: center;
 		gap: 5px;
 		color: rgb(129 59 1);
-    font-size: 12px;
+		color: #fff;
+    font-size: 14px;
 	}
 `;
 
