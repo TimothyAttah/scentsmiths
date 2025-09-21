@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { listUsers, deleteUser } from '../../redux/actions/userActions';
+import {FaTrash, FaEdit} from 'react-icons/fa'
+
 
 const UserList = () => {
 	const dispatch = useDispatch();
@@ -70,14 +72,17 @@ const UserList = () => {
 								<td>
 									<Link to={`/admin/user/${user._id}/edit`}>
 										<Button variant='light' className='btn-sm'>
-											<i className='fas fa-edit'></i>
+											{/* <i className='fas fa-edit'></i>
+											*/}
+											<FaEdit/>
 										</Button>
 									</Link>
 									<Button
 										variant='danger'
 										className='btn-sm'
 										onClick={() => deleteHandler(user._id)}>
-										<i className='fas fa-trash'></i>
+										{/* <i className='fas fa-trash'></i> */ }
+										<FaTrash/>
 									</Button>
 								</td>
 							</tr>

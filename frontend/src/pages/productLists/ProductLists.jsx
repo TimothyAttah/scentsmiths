@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { listProducts, deleteProduct, createProduct } from '../../redux/actions/productAction';
-import {PRODUCT_TYPES} from '../../redux/types'
+import { PRODUCT_TYPES } from '../../redux/types'
+import {FaTrash, FaEdit} from 'react-icons/fa'
 
 const ProductLists = () => {
 	const dispatch = useDispatch();
@@ -120,14 +121,16 @@ const ProductLists = () => {
 								<td>
 									<Link to={`/admin/product/${product._id}/edit`}>
 										<Button variant='light' className='btn-sm'>
-											<i className='fas fa-edit'></i>
+											{/* <i className='fas fa-edit'></i> */ }
+											<FaEdit/>
 										</Button>
 									</Link>
 									<Button
 										variant='danger'
 										className='btn-sm'
 										onClick={() => deleteHandler(product._id)}>
-										<i className='fas fa-trash'></i>
+										{/* <i className='fas fa-trash'></i> */ }
+										<FaTrash/>
 									</Button>
 								</td>
 							</tr>

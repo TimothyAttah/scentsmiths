@@ -94,12 +94,6 @@ const HeaderSidebar = () => {
 							</Link>
 						)}
 
-						<Link to='/contact' onClick={closeSidebar}>
-							<>
-								<i className='fas fa-phone'></i> Contact
-							</>
-						</Link>
-
 						{users && users.isAdmin && (
 							<NavDropdown title='Admin' id='adminmenu'>
 								<Link to='/admin/userlist' onClick={closeSidebar}>
@@ -114,6 +108,12 @@ const HeaderSidebar = () => {
 								</Link>
 							</NavDropdown>
 						)}
+
+						<Link to='/contact' onClick={closeSidebar}>
+							<>
+								<i className='fas fa-phone'></i> Contact
+							</>
+						</Link>
 					</Styles.HeaderDropdownWrapperMobile>
 
 					<Styles.InfoWrapper>
