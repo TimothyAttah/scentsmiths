@@ -11,20 +11,19 @@ export const orderControllers = {
 				shippingAddress,
 				paymentMethod,
 				itemsPrice,
-				taxPrice,
+				// taxPrice,
 				shippingPrice,
 				totalPrice,
 			} = req.body;
 			if (orderItems && orderItems.length === 0) {
 				return res.status(400).json({ msg: 'No order items' });
 			} else {
-				
+
 				const order = new Order({
 					orderItems,
 					shippingAddress,
 					paymentMethod,
 					itemsPrice,
-					taxPrice,
 					shippingPrice,
 					totalPrice,
 				});

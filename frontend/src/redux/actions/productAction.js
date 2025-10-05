@@ -1,45 +1,52 @@
 import { PRODUCT_TYPES } from '../types';
-import axios from 'axios';
+// import axios from 'axios';
 
-// const baseURL = 'http://localhost:5000/api/products';
-const baseURL = 'https://scentsmiths-backend.vercel.app/api/products';
+// // const baseURL = 'http://localhost:5000/api/products';
+// const baseURL = 'https://scentsmiths-backend.vercel.app/api/products';
 
-const API = axios.create({ baseURL: baseURL });
+// const API = axios.create({ baseURL: baseURL });
 
-API.interceptors.request.use((req) => {
-	if (localStorage.getItem('jwt')) {
-		req.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
-	}
+// API.interceptors.request.use((req) => {
+// 	if (localStorage.getItem('jwt')) {
+// 		req.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
+// 	}
 
-	return req;
-});
+// 	return req;
+// });
 
-export const listProducts = (keyword = '') => async (dispatch) => {
-	try {
-		dispatch({
-			type: PRODUCT_TYPES.PRODUCT_LIST_REQUEST,
-		});
+import * as api from '../api';
 
-		// const { data } = await axios.get('https://scentsmiths-backend.vercel.app/api/products');
+export const listProducts =
+	(keyword = '', pageNumber = '') =>
+	async (dispatch) => {
+		try {
+			dispatch({
+				type: PRODUCT_TYPES.PRODUCT_LIST_REQUEST,
+			});
 
-		const { data } = await API.get(`?keyword=${keyword}`);
-		console.log('data>>>>>', data);
+			// const { data } = await axios.get('https://scentsmiths-backend.vercel.app/api/products');
 
-		dispatch({
-			type: PRODUCT_TYPES.PRODUCT_LIST_SUCCESS,
-			payload: data.data,
-		});
-	} catch (err) {
-		console.log(err.message);
-		dispatch({
-			type: PRODUCT_TYPES.PRODUCT_LIST_FAIL,
-			payload:
-				err.response && err.response.data.msg
-					? err.response.data.msg
-					: err.message,
-		});
-	}
-};
+			// const { data } = await API.get(`?keyword=${keyword}`);
+			// console.log('data>>>>>', data);
+
+			const { data } = await api.listProducts(keyword, pageNumber);
+			console.log('data>>>>>', data);
+
+			dispatch({
+				type: PRODUCT_TYPES.PRODUCT_LIST_SUCCESS,
+				payload: data,
+			});
+		} catch (err) {
+			console.log(err.message);
+			dispatch({
+				type: PRODUCT_TYPES.PRODUCT_LIST_FAIL,
+				payload:
+					err.response && err.response.data.msg
+						? err.response.data.msg
+						: err.message,
+			});
+		}
+	};
 
 export const listProductDetails = (id) => async (dispatch) => {
 	try {
@@ -51,7 +58,8 @@ export const listProductDetails = (id) => async (dispatch) => {
 		// 	`https://scentsmiths-backend.vercel.app/api/products/${id}`,
 		// );
 
-		const { data } = await API.get(`/${id}`);
+		// const { data } = await API.get(`/${id}`);
+		const { data } = await api.listProductDetails(id);
 
 		console.log('datails data>>>>>', data);
 
@@ -74,9 +82,10 @@ export const listProductDetails = (id) => async (dispatch) => {
 export const deleteProduct = (id) => async (dispatch) => {
 	try {
 		dispatch({
-			type:PRODUCT_TYPES.PRODUCT_DELETE_REQUEST,
+			type: PRODUCT_TYPES.PRODUCT_DELETE_REQUEST,
 		});
-		const { data } = await API.delete(`/${id}/delete`);
+		// const { data } = await API.delete(`/${id}/delete`);
+		const { data } = await api.deleteProduct(id);
 
 		console.log('products delete action >>>', data);
 
@@ -100,7 +109,8 @@ export const createProduct = () => async (dispatch) => {
 		dispatch({
 			type: PRODUCT_TYPES.PRODUCT_CREATE_REQUEST,
 		});
-		const { data } = await API.post(`/create`);
+		// const { data } = await API.post(`/create`);
+		const { data } = await api.createProduct();
 
 		console.log('products create action >>>', data);
 
@@ -124,7 +134,9 @@ export const updateProduct = (product) => async (dispatch) => {
 		dispatch({
 			type: PRODUCT_TYPES.PRODUCT_UPDATE_REQUEST,
 		});
-		const { data } = await API.put(`/${product?._id}/update`, product);
+		// const { data } = await API.put(`/${product?._id}/update`, product);
+
+		const { data } = await api.updateProduct(product);
 
 		console.log('products UPDATE action >>>', data);
 
@@ -143,3 +155,53 @@ export const updateProduct = (product) => async (dispatch) => {
 	}
 };
 
+export const createProductsReview = (productId, review) => async (dispatch) => {
+	try {
+		dispatch({
+			type: PRODUCT_TYPES.PRODUCT_CREATE_REVIEW_REQUEST,
+		});
+
+		const { data } = await api.productCreateReviews(productId, review);
+
+		console.log('products top rated action >>>', data);
+
+		dispatch({
+			type: PRODUCT_TYPES.PRODUCT_CREATE_REVIEW_SUCCESS,
+			// payload: data.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PRODUCT_TYPES.PRODUCT_CREATE_REVIEW_FAIL,
+			payload:
+				err.response && err.response.data.msg
+					? err.response.data.msg
+					: err.message,
+		});
+	}
+};
+
+export const listTopProducts = () => async (dispatch) => {
+	try {
+		dispatch({
+			type: PRODUCT_TYPES.PRODUCT_TOP_REQUEST,
+		});
+		// const { data } = await API.put(`/${product?._id}/update`, product);
+
+		const { data } = await api.topRatedProduct();
+
+		console.log('products top rated action >>>', data);
+
+		dispatch({
+			type: PRODUCT_TYPES.PRODUCT_TOP_SUCCESS,
+			payload: data.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PRODUCT_TYPES.PRODUCT_TOP_FAIL,
+			payload:
+				err.response && err.response.data.msg
+					? err.response.data.msg
+					: err.message,
+		});
+	}
+};

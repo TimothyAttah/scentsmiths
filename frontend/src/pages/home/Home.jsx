@@ -8,22 +8,35 @@ import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 import Slider from '../../components/slider/Slider';
 import { FadeInAlways } from '../../components/fadeIn/FadeInAlways';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import Paginate from '../../components/pagination/Paginate';
+import ProductCarousel from '../../components/ProductCarousel';
 
 const Home = () => {
-	const{ keyword} = useParams()
-	const { products, error, loading } = useSelector(
+	const { keyword } = useParams();
+	const { pageNumber } = useParams() || 1;
+
+	console.log('page num', pageNumber);
+
+	const { error, loading, products, page, pages } = useSelector(
 		(state) => state.productLists,
 	);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(listProducts(keyword));
-	}, [dispatch, keyword]);
+		dispatch(listProducts(keyword, pageNumber));
+	}, [dispatch, keyword, pageNumber]);
 	return (
 		<>
-			<Slider />
+			{/* <Slider /> */}
+			{!keyword ? (
+				<ProductCarousel />
+			) : (
+				<Link to='/' className='btn btn-light'>
+					Go Back
+				</Link>
+			)}
 			<Container>
 				<Styles.Title>Latest Products</Styles.Title>
 				{loading ? (
@@ -31,13 +44,20 @@ const Home = () => {
 				) : error ? (
 					<Message variant='danger'>{error}</Message>
 				) : (
-					<Row>
-						{products?.map((product, i) => (
-							<Col sm={12} md={6} xl={4} key={i}>
-								<Products product={product} />
-							</Col>
-						))}
-					</Row>
+					<>
+						<Row>
+							{products?.map((product, i) => (
+								<Col sm={12} md={6} xl={4} key={i}>
+									<Products product={product} />
+								</Col>
+							))}
+						</Row>
+						<Paginate
+							page={page}
+							pages={pages}
+							keyword={keyword ? keyword : ''}
+						/>
+					</>
 				)}
 			</Container>
 		</>

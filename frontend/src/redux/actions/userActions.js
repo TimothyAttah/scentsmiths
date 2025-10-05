@@ -1,18 +1,20 @@
 import { USER_TYPES, ORDER_TYPES, CART_TYPES } from '../types';
-import axios from 'axios';
+// import axios from 'axios';
 
-// const baseURL = 'http://localhost:5000/api/auth';
-const baseURL = 'https://scentsmiths-backend.vercel.app/api/auth';
+// // const baseURL = 'http://localhost:5000/api/auth';
+// const baseURL = 'https://scentsmiths-backend.vercel.app/api/auth';
 
-const API = axios.create({ baseURL: baseURL });
+// const API = axios.create({ baseURL: baseURL });
 
-API.interceptors.request.use((req) => {
-	if (localStorage.getItem('jwt')) {
-		req.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
-	}
+// API.interceptors.request.use((req) => {
+// 	if (localStorage.getItem('jwt')) {
+// 		req.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
+// 	}
 
-	return req;
-});
+// 	return req;
+// });
+
+import * as api from '../api';
 
 export const login = (email, password) => async (dispatch) => {
 	try {
@@ -26,7 +28,9 @@ export const login = (email, password) => async (dispatch) => {
 			},
 		};
 
-		const { data } = await API.post('/login', { email, password }, config);
+		// const { data } = await API.post('/login', { email, password }, config);
+
+		const { data } = await api.loginUser(email, password);
 
 		console.log('login>>>', data);
 
@@ -68,12 +72,13 @@ export const register = (name, email, password) => async (dispatch) => {
 			},
 		};
 
-		const { data } = await API.post(
-			'register',
-			{ name, email, password },
-			config,
-		);
+		// const { data } = await API.post(
+		// 	'register',
+		// 	{ name, email, password },
+		// 	config,
+		// );
 
+		const { data } = await api.registerUser({ name, email, password });
 		console.log('register>>>', data);
 
 		dispatch({
@@ -117,7 +122,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 		};
 
 		// const { data } = await API.get(`/users/${id}`);
-		const { data } = await API.get(`/users/${id}`);
+		const { data } = await api.getUserDetails(id);
 
 		console.log('user profile>>>', data);
 
@@ -153,7 +158,9 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 		// 	},
 		// };
 
-		const { data } = await API.put(`/users/profile`, user);
+		// const { data } = await API.put(`/users/profile`, user);
+
+		const { data } = await api.updateUserProfile(user);
 
 		console.log('user profile update>>>', data);
 
@@ -203,7 +210,9 @@ export const deleteUser = (id) => async (dispatch) => {
 			type: USER_TYPES.USER_DELETE_REQUEST,
 		});
 
-		const { data } = await API.delete(`/users/${id}/delete`);
+		// const { data } = await API.delete(`/users/${id}/delete`);
+
+		const { data } = await api.deleteUser(id);
 
 		console.log('user delete action >>>>>>>>', data);
 
@@ -227,9 +236,8 @@ export const getUserByIdDetails = (id) => async (dispatch) => {
 			type: USER_TYPES.USER_GET_BY_ID_REQUEST,
 		});
 
-
-		const { data } = await API.get(`/users/${id}`);
-
+		// const { data } = await API.get(`/users/${id}`);
+		const { data } = await api.getUserByIdDetails(id);
 
 		console.log('user by id details>>>', data);
 

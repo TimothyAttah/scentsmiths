@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +19,8 @@ const ProductEdit = () => {
 	const [name, setName] = useState('');
 	const [price, setPrice] = useState('');
 	const [image, setImage] = useState('');
+	const [files, setFiles] = useState('');
+
 	const [brand, setBrand] = useState('');
 	const [category, setCategory] = useState('');
 	const [countInStock, setCountInStock] = useState(0);
@@ -45,16 +47,16 @@ const ProductEdit = () => {
 			dispatch({ type: PRODUCT_TYPES.PRODUCT_UPDATE_RESET });
 			navigate('/admin/productlist');
 		} else {
-			if (!product?.name || product?._id !== id) {
+			if (!product.name || product._id !== id) {
 				dispatch(listProductDetails(id));
 			} else {
-				setName(product?.name);
-				setPrice(product?.price);
-				setImage(product?.image);
-				setBrand(product?.brand);
-				setCategory(product?.category);
-				setCountInStock(product?.countInStock);
-				setDescription(product?.description);
+				setName(product.name);
+				setPrice(product.price);
+				setImage(product.image);
+				setBrand(product.brand);
+				setCategory(product.category);
+				setCountInStock(product.countInStock);
+				setDescription(product.description);
 			}
 		}
 	}, [product, id, dispatch, navigate, successUpdate]);
@@ -87,21 +89,52 @@ const ProductEdit = () => {
 			};
 
 			const { data } = await axios.post(
-				// 'http://localhost:5000/api/upload',
-				'https://scentsmiths-backend.vercel.app/',
+				'http://localhost:5000/api/upload',
+				// 'https://scentsmiths-backend.vercel.app/',
 				formData,
 				config,
 			);
+			console.log(data);
+
 			setImage(data);
 			setUploading(false);
 		} catch (err) {
 			console.log(err);
 			setUploading(false);
 		}
-	}
+	};
 
-	const submitHandler = (e) => {
+	const submitHandler = async (e) => {
 		e.preventDefault();
+		// const data = new FormData();
+		// data.set('_id', id);
+		// data.set('name', name);
+		// data.set('price', price);
+		// data.set('image', image[0]);
+		// data.set('file', files[0]);
+		// data.set('brand', brand);
+		// data.set('category', category);
+		// data.set('description', description);
+		// data.set('countInStock', countInStock);
+
+		// fetch(`/products/${ id }/update`);
+		// const response = await fetch(`http://localhost:5000/single`, {
+		// 	method: 'POST',
+		// 	body: data,
+		// });
+		// .then(res =>
+		// {
+		// 	return res.json()
+		// })
+		// .then((data) => {
+		// 	console.log('post data', data);
+		// })
+		// .catch((err) => {
+		// 	console.log(err.message);
+		// });
+
+		// console.log(response);
+
 		dispatch(
 			updateProduct({
 				_id: id,
@@ -138,7 +171,8 @@ const ProductEdit = () => {
 								type='name'
 								placeholder='Enter name'
 								value={name}
-								onChange={(e) => setName(e.target.value)}></Form.Control>
+								onChange={(e) => setName(e.target.value)}
+							></Form.Control>
 						</Form.Group>
 
 						<Form.Group controlId='price'>
@@ -147,7 +181,8 @@ const ProductEdit = () => {
 								type='number'
 								placeholder='Enter Price'
 								value={price}
-								onChange={(e) => setPrice(e.target.value)}></Form.Control>
+								onChange={(e) => setPrice(e.target.value)}
+							></Form.Control>
 						</Form.Group>
 
 						<Form.Group controlId='image'>
@@ -156,15 +191,28 @@ const ProductEdit = () => {
 								type='text'
 								placeholder='Enter Image url'
 								value={image}
-								onChange={(e) => setImage(e.target.value)}></Form.Control>
-
+								// onChange={(e) => setImage(e.target.value)}
+								onChange={uploadFileHandler}
+							></Form.Control>
+							<Form.Control
+								label='Choose File'
+								custom
+								type='file'
+								onChange={uploadFileHandler}
+							></Form.Control>
+							{uploading && <Loader />}
 						</Form.Group>
-						<Form.Group controlId='uploading' >
-							<Form.Label>Choose File</Form.Label>
-							<Form.Control type='file' onChange={uploadFileHandler} />
-								</Form.Group>
 
-								{uploading && <Loader/>}
+						{/* <Form.Group controlId='uploading'>
+							<Form.Label>Choose File</Form.Label>
+							<Form.Control
+								type='file'
+								// value={image}
+								// name='image'
+								// onChange={uploadFileHandler}
+								onChange={(e) => setFiles(e.target.files[0])}
+							/>
+						</Form.Group> */}
 
 						<Form.Group controlId='brand'>
 							<Form.Label>Brand</Form.Label>
@@ -172,7 +220,8 @@ const ProductEdit = () => {
 								type='text'
 								placeholder='Enter Brand'
 								value={brand}
-								onChange={(e) => setBrand(e.target.value)}></Form.Control>
+								onChange={(e) => setBrand(e.target.value)}
+							></Form.Control>
 						</Form.Group>
 
 						<Form.Group controlId='category'>
@@ -181,7 +230,8 @@ const ProductEdit = () => {
 								type='text'
 								placeholder='Enter Category'
 								value={category}
-								onChange={(e) => setCategory(e.target.value)}></Form.Control>
+								onChange={(e) => setCategory(e.target.value)}
+							></Form.Control>
 						</Form.Group>
 
 						<Form.Group controlId='countInStock'>
@@ -190,9 +240,8 @@ const ProductEdit = () => {
 								type='number'
 								placeholder='Enter count In Stock'
 								value={countInStock}
-								onChange={(e) =>
-									setCountInStock(e.target.value)
-								}></Form.Control>
+								onChange={(e) => setCountInStock(e.target.value)}
+							></Form.Control>
 						</Form.Group>
 
 						<Form.Group controlId='description'>
@@ -201,7 +250,8 @@ const ProductEdit = () => {
 								type='text'
 								placeholder='Enter Description'
 								value={description}
-								onChange={(e) => setDescription(e.target.value)}></Form.Control>
+								onChange={(e) => setDescription(e.target.value)}
+							></Form.Control>
 						</Form.Group>
 
 						<Button type='submit' variant='primary'>

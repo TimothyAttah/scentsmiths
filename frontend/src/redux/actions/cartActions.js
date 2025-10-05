@@ -1,19 +1,21 @@
 import { CART_TYPES } from '../types';
 
-import axios from 'axios';
+// import axios from 'axios';
 
-// const baseURL = 'http://localhost:5000/api/products';
-const baseURL = 'https://scentsmiths-backend.vercel.app/api/products';
+// // const baseURL = 'http://localhost:5000/api/products';
+// const baseURL = 'https://scentsmiths-backend.vercel.app/api/products';
 
-const API = axios.create({ baseURL: baseURL });
+// const API = axios.create({ baseURL: baseURL });
 
-API.interceptors.request.use((req) => {
-	if (localStorage.getItem('jwt')) {
-		req.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
-	}
+// API.interceptors.request.use((req) => {
+// 	if (localStorage.getItem('jwt')) {
+// 		req.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
+// 	}
 
-	return req;
-});
+// 	return req;
+// });
+
+import * as api from '../api'
 
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -22,7 +24,9 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 	// 	`https://scentsmiths-backend.vercel.app/api/products/${id}`,
 	// );
 
-	const { data } = await API.get(	`/${id}`);
+	// const { data } = await API.get(	`/${id}`);
+	const { data } = await api.addTocart(id);
+
 
 	dispatch({
 		type: CART_TYPES.CART_ADD_ITEM,
@@ -69,4 +73,3 @@ export const savePaymentMethod = (data) => (dispatch) => {
 
 	localStorage.setItem('paymentMethod', JSON.stringify(data));
 };
-

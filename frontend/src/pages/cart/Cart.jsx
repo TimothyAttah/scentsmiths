@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 import Message from '../../components/Message';
 import { addToCart, removeFromCart } from '../../redux/actions/cartActions';
+import { proBaseURL, devBaseURL } from '../../redux/api';
 
 const Cart = () => {
 	const { id } = useParams();
@@ -73,7 +74,12 @@ const Cart = () => {
 							<ListGroup.Item key={item?.product}>
 								<Row>
 									<Col md={2}>
-										<Image src={item?.image} alt={item?.name} fluid rounded />
+										<Image
+											src={`${proBaseURL}${item?.image}`}
+											alt={item?.name}
+											fluid
+											rounded
+										/>
 									</Col>
 									<Col md={3}>
 										<Link to={`/product/${item?.product}`}>{item?.name}</Link>
@@ -87,7 +93,8 @@ const Cart = () => {
 												dispatch(
 													addToCart(item?.product, Number(e.target.value)),
 												)
-											}>
+											}
+										>
 											{[...Array(item?.countInStock).keys()].map((x) => (
 												<option key={x + 1} value={x + 1}>
 													{x + 1}
@@ -99,7 +106,8 @@ const Cart = () => {
 										<Button
 											type='button'
 											variant='light'
-											onClick={() => removeFromCartHandler(item?.product)}>
+											onClick={() => removeFromCartHandler(item?.product)}
+										>
 											<i className='fas fa-trash'></i>
 										</Button>
 									</Col>
@@ -127,7 +135,8 @@ const Cart = () => {
 								type='button'
 								className='btn-block'
 								disabled={cartItems.length === 0}
-								onClick={checkoutHandler}>
+								onClick={checkoutHandler}
+							>
 								Proceed To Checkout
 							</Button>
 						</ListGroup.Item>

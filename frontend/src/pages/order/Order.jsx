@@ -14,6 +14,7 @@ import axios from 'axios';
 import { ORDER_TYPES } from '../../redux/types';
 
 import PaystackPop from '@paystack/inline-js';
+import { proBaseURL } from '../../redux/api';
 
 //https://paystack.shop/pay/n0c1pwwa7x
 
@@ -45,7 +46,8 @@ const Order = () => {
 		const paystack = new PaystackPop();
 
 		paystack.newTransaction({
-			key: 'pk_test_8815bde73135d01f5f82401a3b09e8f1386b5d1c',
+			// key: 'pk_test_8815bde73135d01f5f82401a3b09e8f1386b5d1c',
+			key: 'pk_test_f2894ce8e4fa73c2aa2ff18552409308790a6931',
 			amount: order?.totalPrice * 100,
 			name: 'jane',
 			email: 'jane@gmail.com',
@@ -159,7 +161,7 @@ const Order = () => {
 								<strong>Address:</strong>
 								{order?.shippingAddress?.address},{' '}
 								{order?.shippingAddress?.city}{' '}
-								{order?.shippingAddress?.postalCode},{' '}
+								{/* {order?.shippingAddress?.postalCode},{' '} */}
 								{order?.shippingAddress?.country}
 							</p>
 							{order.isDelivered ? (
@@ -193,7 +195,7 @@ const Order = () => {
 											<Row>
 												<Col md={1}>
 													<Image
-														src={item?.image}
+														src={`${proBaseURL}${item?.image}`}
 														alt={item?.name}
 														fluid
 														rounded
@@ -206,7 +208,7 @@ const Order = () => {
 													</Link>
 												</Col>
 												<Col md={4}>
-													{item?.qty} x ${item?.price} = $
+													{item?.qty} x ₦{item?.price} = ₦
 													{item?.qty * item?.price}
 												</Col>
 											</Row>
@@ -226,25 +228,25 @@ const Order = () => {
 							<ListGroup.Item>
 								<Row>
 									<Col>Items</Col>
-									<Col>${order?.itemsPrice}</Col>
+									<Col>₦{order?.itemsPrice}</Col>
 								</Row>
 							</ListGroup.Item>
 							<ListGroup.Item>
 								<Row>
 									<Col>Shipping</Col>
-									<Col>${order?.shippingPrice}</Col>
+									<Col>₦{order?.shippingPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item>
+							{/* <ListGroup.Item>
 								<Row>
 									<Col>Tax</Col>
-									<Col>${order?.taxPrice}</Col>
+									<Col>₦{order?.taxPrice}</Col>
 								</Row>
-							</ListGroup.Item>
+							</ListGroup.Item> */}
 							<ListGroup.Item>
 								<Row>
 									<Col>Total</Col>
-									<Col>${order?.totalPrice}</Col>
+									<Col>₦{order?.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
 							{/* <Link to='https://paystack.shop/pay/n0c1pwwa7x'>Pay</Link> */}
@@ -259,23 +261,28 @@ const Order = () => {
 										padding: '10px',
 										borderRadius: '10px',
 										color: '#fff',
-									}}>
+									}}
+								>
 									Proceed with payment
 								</button>
-									) }
-
-									{loadingDeliver && <Loader/>}
-
-							{userLogin && userLogin.isAdmin && order.isPaid && !order.isDelivered && (
-								<ListGroup.Item>
-									<Button
-										type='button'
-										className='btn btn-block'
-										onClick={deliverHandler}>
-										Mark As Delived
-									</Button>
-								</ListGroup.Item>
 							)}
+
+							{loadingDeliver && <Loader />}
+
+							{userLogin &&
+								userLogin.isAdmin &&
+								order.isPaid &&
+								!order.isDelivered && (
+									<ListGroup.Item>
+										<Button
+											type='button'
+											className='btn btn-block'
+											onClick={deliverHandler}
+										>
+											Mark As Delived
+										</Button>
+									</ListGroup.Item>
+								)}
 
 							{/* <div ref={paypal}>Payment</div> */}
 							{/* {!order.isPaid && (
