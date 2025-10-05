@@ -5,6 +5,10 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listTopProducts } from '../redux/actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { proBaseURL } from '../redux/api';
+
+console.log(proBaseURL);
+
 
 const ProductCarousel = () => {
 	const dispatch = useDispatch();
@@ -24,7 +28,7 @@ const ProductCarousel = () => {
 				<Carousel.Item key={product._id}>
 					<Link to={`/product/${product._id}`}>
 						<Image
-							src={`http://localhost:5000${product?.image}`}
+							src={`${proBaseURL}${product?.image}`}
 							alt={product.name}
 							fluid
 						/>

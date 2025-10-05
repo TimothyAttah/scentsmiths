@@ -4,6 +4,9 @@ import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 import { proBaseURL } from '../../redux/api';
 
+console.log(proBaseURL);
+
+
 const ButtonBuy = styled.button`
 	width: 200px;
 	height: 40px;
