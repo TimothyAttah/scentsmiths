@@ -29,7 +29,7 @@ const Products = ({ product }) => {
 			<Card className='my-3 p-3 rounded'>
 				<Link to={`/product/${product?._id}`}>
 					<Card.Img
-						src={`${proBaseURL}${product?.image}`}
+						src={`${product?.image}`}
 						// src={product?.image}
 						variant='top'
 					/>
