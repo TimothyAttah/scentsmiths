@@ -18,7 +18,7 @@ const Payment = () => {
     navigate('/shipping')
   }
 
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+  const [paymentMethod, setPaymentMethod] = useState('Paystack');
 
 	const dispatch = useDispatch();
 

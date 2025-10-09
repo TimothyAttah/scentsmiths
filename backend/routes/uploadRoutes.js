@@ -1,10 +1,13 @@
 import path from 'path';
 import express from 'express';
 import multer from 'multer';
+import Images from '../models/imageDetails.js'
 
 // import img1 from '../../frontend/public/images/camera.jpg'
 
 const uploadRouter = express.Router();
+
+// const upload = multer({dest: 'uploads'})
 
 // const storage = multer.diskStorage({
 // 	destination: function (req, file, cb) {
@@ -41,11 +44,11 @@ const uploadRouter = express.Router();
 // });
 
 const storage = multer.diskStorage({
-	destination(req, file, cb) {
-		cb(null, 'uploads/');
-		// cb(null, '../../frontend/public/images');
+	destination: function(req, file, cb) {
+		// cb(null, 'uploads/');
+		cb(null, "../src/images/")
 	},
-	filename(req, file, cb) {
+	filename: function(req, file, cb) {
 		cb(
 			null,
 			`${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`,
@@ -74,8 +77,32 @@ const upload = multer({
 	},
 });
 
-uploadRouter.post('/', upload.single('image'), (req, res) => {
-	res.send(`/${req.file.path}`);
+uploadRouter.post('/', upload.single('image'), async (req, res) => {
+	// res.send(`/${ req.file.path }`);
+	console.log(req.body);
+
+	const imageName = req.file.filename;
+
+	try {
+		await Images.create({ image: imageName });
+		// res.json({ status: 'ok' });
+		res.send(`/${ req.file.path }`);
+	} catch (err) {
+		res.json({ status: err });
+
+	}
 });
 
+uploadRouter.get('/get-image', async (req, res) =>
+{
+	try {
+		Images.find({}).then(data =>
+		{
+			res.send({status: 'ok', data: data})
+		})
+	} catch (err) {
+		console.log(err);
+
+	}
+})
 export default uploadRouter;

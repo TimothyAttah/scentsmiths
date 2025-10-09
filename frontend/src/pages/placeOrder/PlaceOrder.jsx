@@ -75,10 +75,17 @@ const PlaceOrder = () => {
 						<ListGroup.Item>
 							<h2>Shipping</h2>
 							<p>
+								<strong>Name:</strong>
+								{cart?.shippingAddress?.fullName}
+							</p>
+							<p>
+								<strong>Email:</strong>
+								{cart?.shippingAddress?.email}
+							</p>
+							<p>
 								<strong>Address:</strong>
 								{cart?.shippingAddress?.address}, {cart?.shippingAddress?.city}{' '}
-								{/* {cart?.shippingAddress?.postalCode},{' '} */}
-								{cart?.shippingAddress?.country}
+								{cart?.shippingAddress?.state}, {cart?.shippingAddress?.country}
 							</p>
 						</ListGroup.Item>
 						<ListGroup.Item>
@@ -97,7 +104,7 @@ const PlaceOrder = () => {
 											<Row>
 												<Col md={1}>
 													<Image
-														src={`${proBaseURL}${item?.image}`}
+														src={`${item?.image}`}
 														alt={item?.name}
 														fluid
 														rounded

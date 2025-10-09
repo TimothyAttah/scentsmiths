@@ -2,9 +2,10 @@ import axios from 'axios';
 
 // const baseURL = 'http://localhost:5000/api';
 export const devBaseURL = 'http://localhost:5000';
-export const proBaseURL = 'https://scentsmiths-backend.vercel.app';
+export const proBaseURL = 'https://scentsmiths-backend.vercel.app/';
 
 
+// https://scentsmiths-backend.vercel.app/
 const baseURL = 'https://scentsmiths-backend.vercel.app/api';
 
 const API = axios.create({ baseURL: baseURL });

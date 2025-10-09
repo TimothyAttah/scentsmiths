@@ -18,8 +18,8 @@ const ProductEdit = () => {
 
 	const [name, setName] = useState('');
 	const [price, setPrice] = useState('');
-	const [image, setImage] = useState('');
-	const [files, setFiles] = useState('');
+	const [image, setImage] = useState(null);
+	const [url, setUrl] = useState('');
 
 	const [brand, setBrand] = useState('');
 	const [category, setCategory] = useState('');
@@ -62,17 +62,50 @@ const ProductEdit = () => {
 	}, [product, id, dispatch, navigate, successUpdate]);
 
 	const uploadFileHandler = async (e) => {
-		const file = e.target.files[0];
-		const formData = new FormData();
-		formData.append('image', file);
-		setUploading(true);
+		// const file = e.target.files[0];
+		// setImage(e.target.files[0]);
+		// const file = e.target.files[0];
+		// const formData = new FormData();
+		// formData.append('image', file);
+		// setUploading(true);
+		try
+		{
+			const file = e.target.files[0];
+			// const formData = new FormData();
+			// formData.append('image', file);
 
+			const imageData = new FormData();
+			imageData.append('file', file);
+			imageData.append('upload_preset', 'scentsmithImages');
+			imageData.append('cloud_name', 'timothycloud');
+
+			setUploading(true);
+
+			const { data } = await axios.post(
+				'https://api.cloudinary.com/v1_1/timothycloud/image/upload',
+				imageData,
+			);
+
+			console.log('Image data in cloud', data);
+			setImage(data.secure_url);
+			setUploading(false);
+		} catch (err) {
+			console.log(err);
+		}
+
+		//api.cloudinary.com/v1_1/{cloud_name}/image/upload
+
+		// https: setUploading(true);
+
+		// console.log(e.target.files[0]);
+
+		// setImage(e.target.files[0]);
 		// setSelectedImage(e.target.files[0]);
 
 		// const formData = new FormData();
 		// formData.append('image', selectedImage); // 'image' is the field name Multer will expect
 
-		// axios
+		//  axios
 		// 	.post('/api/upload', formData, {
 		// 		headers: {
 		// 			'Content-Type': 'multipart/form-data',
@@ -81,41 +114,52 @@ const ProductEdit = () => {
 		// 	.then((response) => console.log(response.data))
 		// 	.catch((error) => console.error(error));
 
-		try {
-			const config = {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-			};
+		// try {
+		// 	const config = {
+		// 		headers: {
+		// 			'Content-Type': 'multipart/form-data',
+		// 		},
+		// 	};
 
-			const { data } = await axios.post(
-				'http://localhost:5000/api/upload',
-				// 'https://scentsmiths-backend.vercel.app/',
-				formData,
-				config,
-			);
-			console.log(data);
+		// 	const { data } = await axios.post(
+		// 		'http://localhost:5000/api/upload',
+		// 		// 'https://scentsmiths-backend.vercel.app/',
+		// 		formData,
+		// 		config,
+		// 	);
+		// 	console.log(data);
 
-			setImage(data);
-			setUploading(false);
-		} catch (err) {
-			console.log(err);
-			setUploading(false);
-		}
+		// 	setImage(data);
+		// 	setUploading(false);
+		// } catch (err) {
+		// 	console.log(err);
+		// 	setUploading(false);
+		// }
+
+		// console.log(image);
 	};
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		// const data = new FormData();
-		// data.set('_id', id);
-		// data.set('name', name);
-		// data.set('price', price);
-		// data.set('image', image[0]);
-		// data.set('file', files[0]);
-		// data.set('brand', brand);
-		// data.set('category', category);
-		// data.set('description', description);
-		// data.set('countInStock', countInStock);
+		// const formData = new FormData();
+		// formData.append('_id', id);
+		// formData.append('name', name);
+		// formData.append('price', price);
+		// formData.append('image', image);
+		// formData.append('brand', brand);
+		// formData.append('category', category);
+		// formData.append('description', description);
+		// formData.append('countInStock', countInStock);
+
+		// const result = await axios.post(
+		// 	'http://localhost:5000/api/upload',
+		// 	formData,
+		// 	{
+		// 		headers: { 'Content-Type': 'multipart/form-data' },
+		// 	},
+		// );
+
+		// console.log('result>>>>>>', result);
 
 		// fetch(`/products/${ id }/update`);
 		// const response = await fetch(`http://localhost:5000/single`, {
@@ -135,6 +179,24 @@ const ProductEdit = () => {
 
 		// console.log(response);
 
+		// try {
+		// 	const imageData = new FormData();
+		// 	imageData.append('image', image);
+		// 	imageData.append('upload_preset', 'scentsmithImages');
+		// 	imageData.append('cloud_name', 'timothycloud');
+
+		// 	const { data } = await axios.post(
+		// 		'https://api.cloudinary.com/v1_1/timothycloud/image/upload',
+		// 		imageData,
+		// 	);
+
+		// 	console.log('Image data in cloud', data);
+		// 	setUrl(data.secure_url);
+		// 	setImage(data.secure_url);
+		// } catch (err) {
+		// 	console.log(err);
+		// }
+
 		dispatch(
 			updateProduct({
 				_id: id,
@@ -148,6 +210,13 @@ const ProductEdit = () => {
 			}),
 		);
 	};
+
+	// const getImage = async () => {
+	// 	const result = await axios.get(
+	// 		'http://localhost:5000/api/upload/get-image',
+	// 	);
+	// 	console.log('get all images res>>>>>>', result);
+	// };
 
 	return (
 		<>
@@ -190,6 +259,7 @@ const ProductEdit = () => {
 							<Form.Control
 								type='text'
 								placeholder='Enter Image url'
+								name='image'
 								value={image}
 								// onChange={(e) => setImage(e.target.value)}
 								onChange={uploadFileHandler}
@@ -198,11 +268,11 @@ const ProductEdit = () => {
 								label='Choose File'
 								custom
 								type='file'
+								name='image'
 								onChange={uploadFileHandler}
 							></Form.Control>
 							{uploading && <Loader />}
 						</Form.Group>
-
 						{/* <Form.Group controlId='uploading'>
 							<Form.Label>Choose File</Form.Label>
 							<Form.Control

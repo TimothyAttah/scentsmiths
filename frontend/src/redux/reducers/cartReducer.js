@@ -1,6 +1,9 @@
 import { CART_TYPES } from '../types';
 
-export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => {
+export const cartReducer = (
+	state = { cartItems: [], shippingAddress: {}, shippingPrice: {} },
+	action,
+) => {
 	switch (action.type) {
 		case CART_TYPES.CART_ADD_ITEM:
 			const item = action.payload;
@@ -31,6 +34,12 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
 			return {
 				...state,
 				shippingAddress: action.payload,
+			};
+
+		case CART_TYPES.CART_SAVE_SHIPPING_PRICE:
+			return {
+				...state,
+				shippingPrice: action.payload,
 			};
 
 		case CART_TYPES.CART_SAVE_PAYMENT_METHOD:

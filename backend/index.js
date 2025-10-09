@@ -33,6 +33,8 @@ app.use('/api/orders', orderRoutes);
 
 app.use('/api/upload', uploadRoutes);
 
+
+
 // const storage = multer.diskStorage({
 // 	destination: function (req, file, cb) {
 // 		cb(null, './uploads');
@@ -71,7 +73,7 @@ const __dirname = path.resolve();
 // 	express.static(path.join(__dirname, '../frontend/public/images')),
 // );
 
-app.use('/uploads', express.static('./uploads'));
+// app.use('/uploads', express.static('./uploads'));
 
 // ../frontend/public/images
 

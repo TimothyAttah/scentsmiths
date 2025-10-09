@@ -49,8 +49,9 @@ const Order = () => {
 			// key: 'pk_test_8815bde73135d01f5f82401a3b09e8f1386b5d1c',
 			key: 'pk_test_f2894ce8e4fa73c2aa2ff18552409308790a6931',
 			amount: order?.totalPrice * 100,
-			name: 'jane',
-			email: 'jane@gmail.com',
+			name: order?.shippingAddress?.fullName,
+			email: order?.shippingAddress?.email,
+			phone: order?.shippingAddress?.phoneNumber,
 
 			onSuccess(transaction) {
 				console.log('This is payment>>>>>', transaction);
@@ -73,7 +74,7 @@ const Order = () => {
 
 			dispatch(getOrderDetails(id));
 		}
-	}, [dispatch, order,id, successDeliver, successPay]);
+	}, [dispatch, order, id, successDeliver, successPay]);
 
 	// useEffect(() => {
 	// 	const addPayPalScript = async () => {
@@ -158,10 +159,17 @@ const Order = () => {
 								<a href={`mailto:${order.user.email}`}>{order.user.email}</a>
 							</p> */}
 							<p>
+								<strong>Name:</strong>
+								{order?.shippingAddress?.fullName}
+							</p>
+							<p>
+								<strong>Email:</strong>
+								{order?.shippingAddress?.email}
+							</p>
+							<p>
 								<strong>Address:</strong>
 								{order?.shippingAddress?.address},{' '}
-								{order?.shippingAddress?.city}{' '}
-								{/* {order?.shippingAddress?.postalCode},{' '} */}
+								{order?.shippingAddress?.city} {order?.shippingAddress?.state},{' '}
 								{order?.shippingAddress?.country}
 							</p>
 							{order.isDelivered ? (
@@ -195,7 +203,7 @@ const Order = () => {
 											<Row>
 												<Col md={1}>
 													<Image
-														src={`${proBaseURL}${item?.image}`}
+														src={`${item?.image}`}
 														alt={item?.name}
 														fluid
 														rounded

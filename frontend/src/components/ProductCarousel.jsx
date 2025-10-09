@@ -28,7 +28,7 @@ const ProductCarousel = () => {
 				<Carousel.Item key={product._id}>
 					<Link to={`/product/${product._id}`}>
 						<Image
-							src={`${proBaseURL}${product?.image}`}
+							src={`${product?.image}`}
 							alt={product.name}
 							fluid
 						/>

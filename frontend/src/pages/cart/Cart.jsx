@@ -75,7 +75,7 @@ const Cart = () => {
 								<Row>
 									<Col md={2}>
 										<Image
-											src={`${proBaseURL}${item?.image}`}
+											src={`${item?.image}`}
 											alt={item?.name}
 											fluid
 											rounded

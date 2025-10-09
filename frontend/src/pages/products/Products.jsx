@@ -3,6 +3,7 @@ import Rating from '../../components/rating/Rating';
 import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 import { proBaseURL } from '../../redux/api';
+// import {} from 'req'
 
 console.log(proBaseURL);
 
@@ -29,8 +30,10 @@ const Products = ({ product }) => {
 			<Card className='my-3 p-3 rounded'>
 				<Link to={`/product/${product?._id}`}>
 					<Card.Img
-						src={`${product?.image}`}
-						// src={product?.image}
+						// src={`${product?.image}`}
+						src={product?.image}
+						// src={require(`../../images/${product.image}`).default}
+						// src={require('../../images/Golden Dusk.png}').default}
 						variant='top'
 					/>
 				</Link>

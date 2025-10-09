@@ -88,7 +88,7 @@ const ProductItem = () => {
 					<Row>
 						<Col md={6}>
 							<Image
-								src={`${proBaseURL}${product?.image}`}
+								src={`${product.image}`}
 								alt=''
 								fluid
 							/>

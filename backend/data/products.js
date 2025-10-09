@@ -1,7 +1,7 @@
 const products = [
 	{
 		name: 'Lavender Veil',
-		image: '/uploads/Lavender Veil.png',
+		image: '/images/Lavender Veil.png',
 		description:
 			' Lavender Veil is a serene, elegant composition that envelopes your space in the calming essence of pure French lavender. Layered with the airy softness of white musk and the comforting warmth of tonka bean, this scent floats gently through the air — like a lavender-scented breeze at dusk',
 		brand: 'Apple',
@@ -13,7 +13,7 @@ const products = [
 	},
 	{
 		name: 'Golden Dusk',
-		image: '/uploads/Golden Dusk.png',
+		image: '/images/Golden Dusk.png',
 		description:
 			'A radiant blend of bergamot and sweet orange opens the air with fresh optimism, gently descending into a heart of amber and vanilla. The base of sandalwood and white musk grounds the scent with smooth, lasting warmth',
 		brand: 'Apple',
@@ -25,7 +25,7 @@ const products = [
 	},
 	{
 		name: 'Enchanted Rosewood ',
-		image: '/uploads/Enchanted Rosewood.png',
+		image: '/images/Enchanted Rosewood.png',
 		description:
 			'A refined blend where delicate rose petals and a spark of pink pepper open into a heart of geranium and oud, creating an alluring floral-woody harmony. The fragrance deepens into a warm, sensual base of patchouli and amber, casting a golden glow that lingers with elegance.',
 		brand: 'Cannon',
@@ -37,7 +37,7 @@ const products = [
 	},
 	{
 		name: 'Velvet drive ',
-		image: '/uploads/Velvet drive.png',
+		image: '/images/Velvet drive.png',
 		description:
 			' Experience the art of refined travel with Velvet Drive, a luxury car diffuser crafted for those who appreciate sophistication in motion.',
 

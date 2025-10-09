@@ -16,9 +16,19 @@ import UserEdit from './pages/userEdit/UserEdit';
 import ProductLists from './pages/productLists/ProductLists';
 import ProductEdit from './pages/productEdit/ProductEdit';
 import OrderList from './pages/orderList/OrderList';
-
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const App = () => {
+	useEffect(() => {
+		getImage();
+	}, []);
+	const getImage = async () => {
+		const result = await axios.get(
+			'http://localhost:5000/api/upload/get-image',
+		);
+		console.log('get all images res>>>>>>', result);
+	};
 	return (
 		<>
 			<Routes>
@@ -29,7 +39,10 @@ const App = () => {
 					<Route path='/search/:keyword/page/:pageNumber' element={<Home />} />
 					<Route path='/product/:id' element={<ProductItem />} />
 					<Route path='/admin/productlist/' element={<ProductLists />} />
-					<Route path='/admin/productlist/:pageNumber' element={<ProductLists />} />
+					<Route
+						path='/admin/productlist/:pageNumber'
+						element={<ProductLists />}
+					/>
 
 					<Route path='/admin/product/:id/edit' element={<ProductEdit />} />
 					<Route path='/admin/orderlist' element={<OrderList />} />
