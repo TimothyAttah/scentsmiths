@@ -78,7 +78,7 @@ export const productControllers = {
 				name: 'Sample name',
 				price: 0,
 				user: req.user._id,
-				image: '/images/airpods.jpg',
+				image: '/images/sample.png',
 				brand: 'Sample brand',
 				category: 'Sample category',
 				countInStock: 0,

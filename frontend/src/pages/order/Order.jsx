@@ -47,7 +47,8 @@ const Order = () => {
 
 		paystack.newTransaction({
 			// key: 'pk_test_8815bde73135d01f5f82401a3b09e8f1386b5d1c',
-			key: 'pk_test_f2894ce8e4fa73c2aa2ff18552409308790a6931',
+			// key: 'pk_test_f2894ce8e4fa73c2aa2ff18552409308790a6931',
+			key: 'pk_live_7a8ee5d54e68ced03ffcc1e29887fb9dd7917069',
 			amount: order?.totalPrice * 100,
 			name: order?.shippingAddress?.fullName,
 			email: order?.shippingAddress?.email,
