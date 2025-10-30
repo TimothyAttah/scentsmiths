@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
 	left: 0;
 	padding: 50px;
 	z-index: 999;
-	position: relative;
+	position: fixed;
 `;
 
 export const HeaderWrapper = styled.div`

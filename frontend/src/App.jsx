@@ -18,6 +18,9 @@ import ProductEdit from './pages/productEdit/ProductEdit';
 import OrderList from './pages/orderList/OrderList';
 import { useEffect } from 'react';
 import axios from 'axios';
+import Hero from './pages/hero/Hero';
+import About from './pages/aboutUs/AboutUs';
+
 
 const App = () => {
 	useEffect(() => {
@@ -33,7 +36,10 @@ const App = () => {
 		<>
 			<Routes>
 				<Route element={<Layout />}>
-					<Route path='/' element={<Home />} />
+					<Route path='/' element={<Hero />} />
+					<Route path='/about-us' element={<About />} />
+					<Route path='/products' element={<Home />} />
+
 					<Route path='/search/:keyword' element={<Home />} />
 					<Route path='/page/:pageNumber' element={<Home />} />
 					<Route path='/search/:keyword/page/:pageNumber' element={<Home />} />

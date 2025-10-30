@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Header from './header/DesktopHeader';
+import Header from './header/NewHeader';
 import Footer from './footer/Footer';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';

@@ -7,13 +7,18 @@ export const GlobalStyles = createGlobalStyle`
   src: url('fonts/EMprint Bold.woff2') format('woff2');
   src: url('fonts/EMprint Light.woff2') format('woff2');
   src: url('fonts/EMprint Regular.woff2') format('woff2');
-  /* src: url('fonts/EMprint Semibold.woff2') format('woff2'); */
+  src: url('fonts/EMprint Semibold.woff2') format('woff2');
 
+}
+
+@font-face {
+  font-family: 'Gotham' ;
+  src: url('fonts/Gotham Black.otf') format('otf');
 }
 
   :root {
     --crimson: rgb(220, 20, 60);
-    
+
     --brown: rgb(255, 115, 0);
     --brown-primary: rgb(129 59 1);
     --green: rgb(81, 128, 11);
@@ -32,16 +37,31 @@ export const GlobalStyles = createGlobalStyle`
 
     --teniColor: #B76E79;
 
-    --teniColor2: rgb(183, 110, 121)
+    --teniColor2: rgb(183, 110, 121);
+    --teniColor3: #ab6c56;
+
+    --main-color-t: #008080;
+    --main-color-g: #fdb515;
+    --main-color-o: #f07537;
+    --main-color: #ff7300;
+    --main-color-navy: navyblue;
+
+    --base-color-green: hsl(128, 47%, 26%);
+    --base-color-green-neg: hsl(from var(--base-color-green) h s calc(l - 10));
+    --base-color-green-plus: hsl(from var(--base-color-green) h s calc(l + 10));
+
+    --base-color-gold: hsl(35 100% 50%);
+    --base-color-gold-neg: hsl(from var(--base-color-gold) h s calc(l - 10));
+    --base-color-gold-plus: hsl(from var(--base-color-gold) h s calc(l + 10));
   }
 
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-    /* font-family: "Poppins", sans-serif; */
-    font-family: "EMprint", sans-serif;
+    font-family: "EMprint", sans-serif !important;
+    font-family: "GothamBlack", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: normal;
   }
 
   body {
@@ -55,6 +75,17 @@ export const GlobalStyles = createGlobalStyle`
     color: #e6edf3;
     color: #0d1117;
   }
+
+  h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, p, li {
+    text-transform: none;
+    letter-spacing: normal;
+    margin: 0;
+    padding: 0;
+    font-family: "EMprint", sans-serif !important;
+    font-family: "GothamBlack", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    font-weight: 900 !important;
+}
 
   a {
     text-decoration: none;
@@ -126,4 +157,10 @@ export const GlobalStyles = createGlobalStyle`
 .div4 {
   background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
 }
+
+.activeHeader {
+    background: var( --teniColor);
+    max-width: 2000px !important;
+	width: 100% !important;
+  }
 `;

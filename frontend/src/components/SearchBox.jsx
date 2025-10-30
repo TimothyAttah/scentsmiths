@@ -10,29 +10,30 @@ const SearchBox = ({ closeSidebar }) => {
 		e.preventDefault();
 		if (keyword.trim()) {
 			navigate(`/search/${keyword}`);
-			closeSidebar && closeSidebar()
+			closeSidebar && closeSidebar();
 		} else {
 			navigate('/');
 		}
 	};
 	return (
-		<div>
-			<Form
+		<>
+			<form
 				onSubmit={submitHandler}
 				className='flex flex-row'
-				style={{ display: 'flex' }}>
-				<Form.Control
+				style={{ display: 'flex' }}
+			>
+				<input
 					type='text'
 					name='q'
 					onChange={(e) => setKeyword(e.target.value)}
 					placeholder='Serch Products...'
-					className='mr-sm-2 ml-sm-5'></Form.Control>
-				<Button type='submit' variant='outline-success' className='p-2 ' onClick={closeSidebar}>
+				/>
+				<button type='submit' onClick={closeSidebar}>
 					Search
-				</Button>
-			</Form>
-		</div>
+				</button>
+			</form>
+		</>
 	);
 };
 
-export default SearchBox
+export default SearchBox;
